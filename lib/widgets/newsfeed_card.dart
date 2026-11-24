@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../constants.dart';
 import 'action_button.dart';
 import 'custom_text.dart';
@@ -11,6 +12,7 @@ class NewsfeedCard extends StatelessWidget {
   final String date;
   final int? numOfLikes;
   final bool? hasImage;
+  final String? imageAssetPath;
 
   const NewsfeedCard({
     super.key,
@@ -19,6 +21,7 @@ class NewsfeedCard extends StatelessWidget {
     required this.date,
     this.numOfLikes,
     this.hasImage,
+    this.imageAssetPath,
   });
 
   @override
@@ -45,7 +48,9 @@ class NewsfeedCard extends StatelessWidget {
                   child: Text(
                     userName.isNotEmpty ? userName[0] : '?',
                     style: const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 SizedBox(width: w),
@@ -86,11 +91,15 @@ class NewsfeedCard extends StatelessWidget {
             SizedBox(height: ScreenUtil().setHeight(5)),
             // ENHANCEMENT 1: image area is now a widget
             if (hasImage == true)
-              const PostImage(assetPath: 'assets/images/pusa.jpg'),
+              PostImage(
+                assetPath: imageAssetPath ?? 'assets/images/shrek.jpeg',
+              ),
             // Number of likes only (reactions disregarded)
             if (numOfLikes != null)
               Padding(
-                padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(5)),
+                padding: EdgeInsets.symmetric(
+                  vertical: ScreenUtil().setHeight(5),
+                ),
                 child: CustomText(
                   text: '$numOfLikes likes',
                   fontSize: ScreenUtil().setSp(12),
@@ -101,7 +110,11 @@ class NewsfeedCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
-                ActionButton(icon: Icons.thumb_up, label: 'Like', color: fbPrimary),
+                ActionButton(
+                  icon: Icons.thumb_up,
+                  label: 'Like',
+                  color: fbPrimary,
+                ),
                 ActionButton(icon: Icons.comment, label: 'Comment'),
                 ActionButton(icon: Icons.redo, label: 'Share'),
               ],
@@ -112,7 +125,11 @@ class NewsfeedCard extends StatelessWidget {
                 CircleAvatar(
                   radius: ScreenUtil().radius(14),
                   backgroundColor: fbLightPrimary,
-                  child: const Icon(Icons.person, size: 16, color: Colors.white),
+                  child: const Icon(
+                    Icons.person,
+                    size: 16,
+                    color: Colors.white,
+                  ),
                 ),
                 SizedBox(width: w),
                 Expanded(
@@ -122,7 +139,9 @@ class NewsfeedCard extends StatelessWidget {
                     height: ScreenUtil().setHeight(25),
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(ScreenUtil().setSp(10)),
+                      borderRadius: BorderRadius.circular(
+                        ScreenUtil().setSp(10),
+                      ),
                     ),
                     child: CustomText(
                       text: 'Write a comment...',

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:innovit_mobprog/constants.dart';
-import 'package:innovit_mobprog/screens/newsfeed_screen.dart';
-import 'package:innovit_mobprog/widgets/custom_text.dart';
+import 'package:delosreyes_mobprog/constants.dart';
+import 'package:delosreyes_mobprog/screens/newsfeed_screen.dart';
+import 'package:delosreyes_mobprog/screens/notifacation_screen.dart';
+import 'package:delosreyes_mobprog/screens/profile_screen.dart';
+import 'package:delosreyes_mobprog/widgets/custom_text.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,7 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
         shadowColor: fbTextColorWhite,
         elevation: 2,
         title: CustomText(
-          text: 'Facebook',
+          text: _selectedIndex == 0
+              ? 'WADADADENG'
+              : _selectedIndex == 1
+              ? 'NOTIFICATION'
+              : 'PROFILE',
           fontSize: ScreenUtil().setSp(25),
           color: fbPrimary,
           fontFamily: 'Klavika',
@@ -40,7 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: _pageController,
         children: const <Widget>[
           NewsfeedScreen(),
-          Center(child: Text('Notifications')),
+          NotificationScreen(),
+          ProfileScreen(),
         ],
         onPageChanged: (page) {
           setState(() {
@@ -55,14 +62,15 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: _onTappedBar,
 
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
 
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
             label: 'Notifications',
+          ), // BottomNavigationBarItem
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ), // BottomNavigationBarItem
         ],
 
